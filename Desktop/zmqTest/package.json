@@ -1,0 +1,14 @@
+{
+  "name": "zmqtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "levonghukasy@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "zeromq": "^6.0.0-beta.5"
+  }
+}
