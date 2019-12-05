@@ -28,15 +28,21 @@ module.exports.pullSocket = async function (port) {
     }
 }
 
-// module.exports.publisher = async function (port) {
-//     const sock = new zmq.Publisher
+module.exports.publisher = async function (port,...message) {
+    const sock = new zmq.Publisher
    
-//     await sock.bind(`tcp://127.0.0.1:3000`)
-//     console.log("Publisher bound to port 3000")
-   
-//     while (true) {
-//       console.log("sending a multipart message envelope")
-//       await sock.send(["kitty cats", "meow!"])
-//       await new Promise(resolve => setTimeout(resolve, 500))
-//     }
-//   }
+    await sock.bind(`tcp://127.0.0.1:${port}`)
+    console.log(`Publisher bound to port ${port}`)
+    await sock.send(message)
+  };
+
+module.exports.subscriber = async function(port){
+    const sock = new zmq.Subscriber;
+    sock.connect(`tcp://127.0.0.1:${port}`);
+    sock.subscribe("mymessage")
+  console.log(`Subscriber connected to port ${port}`)
+ 
+  for await (const [topic, msg] of sock) {
+    console.log("received a message related to:", topic, "containing message:", msg)
+  }
+}
